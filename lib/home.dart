@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:vocab_app/Gallery/gallery.dart';
-import 'package:vocab_app/exercise.dart';
+import 'package:vocab_app/menu_game.dart';
 
 class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(primarySwatch: Colors.purple, fontFamily: "Sarabun"),
+      theme: ThemeData(primarySwatch: Colors.purple, fontFamily: ""),
       home: MyHomePage(),
     );
   }
@@ -38,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Container(
                   child: Text(
                     'Vocabulary',
-                    style: TextStyle(color: Colors.amber, fontSize: 50),
+                    style: TextStyle(color: Colors.amber, fontSize: 50 , fontFamily: 'Lobster'),
                   ),
                 ),
                 Container(
@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     onPressed: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Exercise(),
+                        builder: (context) => MenuGame(),
                       ),
                     ),
                     child: Text(
