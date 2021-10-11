@@ -1,31 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:vocab_app/content/contentData.dart';
+import 'package:vocab_app/Exercise/spellingBee.dart';
 import 'package:vocab_app/widget/GadientText_widget.dart';
-import 'package:vocab_app/Gallery/gallery.dart';
+import 'package:vocab_app/Exercise/choiceImage.dart';
+import 'package:vocab_app/Exercise/dropVocab.dart';
 
-class MainGallery extends StatefulWidget {
-  const MainGallery({Key? key}) : super(key: key);
+class MenuGame extends StatelessWidget {
+  const MenuGame({Key? key}) : super(key: key);
 
-  @override
-  _MainGalleryState createState() => _MainGalleryState();
-}
-
-class _MainGalleryState extends State<MainGallery> {
   void _toGamePage(context, gamePage) {
-    if (gamePage == 0) {
+    if (gamePage == 1) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => Gallery(galleryType: 'animal')),
+        MaterialPageRoute(builder: (context) => DropVocab()),
       );
-    } else if (gamePage == 1) {
+    } else if (gamePage == 2) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => Gallery(galleryType: 'fruit')),
+        MaterialPageRoute(builder: (context) => ChoiceImage()),
       );
     } else {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => Gallery(galleryType: 'food')),
+        MaterialPageRoute(builder: (context) => SpellingBee()),
       );
     }
   }
@@ -38,10 +34,11 @@ class _MainGalleryState extends State<MainGallery> {
           child: Column(
             children: <Widget>[
               GadientText(
-                titleShow: 'Gallery',
+                titleShow: 'Game',
               ),
-              for (var i = 0; i < allGalleryTitle.length; i++)
-                _buildButtonGame(context, allGalleryTitle[i].title, i),
+              _buildButtonGame(context, 'Drop Vocab to Image', 1),
+              _buildButtonGame(context, 'Choice Image to Correct', 2),
+              _buildButtonGame(context, 'Complete Vocab', 3)
             ],
           ),
         ),

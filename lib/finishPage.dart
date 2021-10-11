@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vocab_app/dragSentence.dart';
+import 'package:vocab_app/Exercise/choiceImage.dart';
 import 'package:vocab_app/home.dart';
 import 'package:vocab_app/theme/color.dart';
 
@@ -23,7 +23,7 @@ class FinishPage extends StatelessWidget {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => DragSentence(),
+          builder: (context) => ChoiceImage(),
         ),
       );
     }

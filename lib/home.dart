@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vocab_app/Gallery/gallery.dart';
-import 'package:vocab_app/menu_game.dart';
+import 'package:vocab_app/Gallery/mainGallery.dart';
+import 'package:vocab_app/Exercise/menu_game.dart';
 
 class Login extends StatelessWidget {
   @override
@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     onPressed: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Gallery(),
+                        builder: (context) => MainGallery(),
                       ),
                     ),
                     child: Text(

@@ -4,8 +4,9 @@ import 'package:vocab_app/content/contentData.dart';
 import 'package:vocab_app/theme/color.dart';
 
 class Gallery extends StatefulWidget {
-  const Gallery({Key? key, }) : super(key: key);
+  const Gallery({Key? key, required this.galleryType}) : super(key: key);
 
+  final galleryType;
 
   @override
   _GalleryState createState() => _GalleryState();
@@ -13,6 +14,8 @@ class Gallery extends StatefulWidget {
 
 class _GalleryState extends State<Gallery> {
   bool isSpeaking = false;
+
+  List newList = [];
 
   final _flutterTts = FlutterTts();
 
@@ -38,6 +41,13 @@ class _GalleryState extends State<Gallery> {
   void initState() {
     super.initState();
     initializeTts();
+
+    setState(() {
+      newList = allDataInGallery
+        .where((i) => i.type == widget.galleryType.toString())
+        .toList();
+    });
+    
   }
 
   void speakVocab(vocab) async {
@@ -69,7 +79,7 @@ class _GalleryState extends State<Gallery> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor : Colors.amber,
+        backgroundColor: Colors.amber,
         appBar: AppBar(
           title: Text('Vocabulary Gallery'),
           centerTitle: true,
@@ -81,13 +91,13 @@ class _GalleryState extends State<Gallery> {
             mainAxisSpacing: 15,
             crossAxisCount: 2,
             children: <Widget>[
-              for (var i = 0; i < galleryData.length; i++)
+              for (var i = 0; i < newList.length; i++)
                 MaterialButton(
                   color: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   ),
-                  onPressed: () => dialogVocab(context, galleryData[i]),
+                  onPressed: () => dialogVocab(context, newList[i]),
                   child: Container(
                     width: 158,
                     height: 158,
@@ -95,13 +105,13 @@ class _GalleryState extends State<Gallery> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Image.asset(
-                          galleryData[i]["img"],
+                          newList[i].img,
                           width: 100,
                         ),
                         Container(
                           margin: EdgeInsets.only(top: 3.0),
                           child: Text(
-                            galleryData[i]["name"],
+                            newList[i].name,
                             style: TextStyle(fontSize: 18),
                           ),
                         )
@@ -130,7 +140,7 @@ class _GalleryState extends State<Gallery> {
                     margin: EdgeInsets.only(top: 20.0),
                     width: 150,
                     child: Image.asset(
-                      detail["img"],
+                      detail.img,
                       width: 100,
                     ),
                     decoration: BoxDecoration(
@@ -149,12 +159,12 @@ class _GalleryState extends State<Gallery> {
                   Container(
                       margin: EdgeInsets.only(top: 20.0, bottom: 5.0),
                       child: Text(
-                        detail['name'],
+                        detail.name,
                         style: TextStyle(fontSize: 30, color: mcl42),
                       )),
                   Container(
                     child: Text(
-                      detail["subtitle"] + " , " + detail['pos'],
+                      detail.subtitle + " , " + detail.pos,
                       style: TextStyle(fontSize: 14),
                     ),
                   ),
@@ -163,7 +173,7 @@ class _GalleryState extends State<Gallery> {
                     padding:
                         EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
                     child: Text(
-                      detail["detail"],
+                      detail.detail,
                       textAlign: TextAlign.justify,
                     ),
                   ),
@@ -179,7 +189,7 @@ class _GalleryState extends State<Gallery> {
                           child: MaterialButton(
                             padding: EdgeInsets.all(0.0),
                             onPressed: () => !isSpeaking
-                                ? speakVocab(detail['name'])
+                                ? speakVocab(detail.name)
                                 : stop(),
                             child: Icon(Icons.volume_up),
                             shape: CircleBorder(side: BorderSide(width: 2)),
@@ -192,7 +202,7 @@ class _GalleryState extends State<Gallery> {
                           child: MaterialButton(
                             padding: EdgeInsets.all(0.0),
                             onPressed: () => !isSpeaking
-                                ? speakDetail(detail['detail'])
+                                ? speakDetail(detail.detail)
                                 : stop(),
                             child: Icon(Icons.hearing),
                             shape: CircleBorder(side: BorderSide(width: 2)),

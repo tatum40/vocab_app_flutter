@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:vocab_app/content/contentData.dart';
-import 'package:vocab_app/dialog_widget.dart';
+import 'package:vocab_app/widget/dialog_widget.dart';
 import 'package:vocab_app/finishPage.dart';
+import 'package:vocab_app/home.dart';
 import 'package:vocab_app/theme/color.dart';
 
-class Exercise extends StatefulWidget {
-  const Exercise({Key? key}) : super(key: key);
+class DropVocab extends StatefulWidget {
+  const DropVocab({Key? key}) : super(key: key);
 
   @override
-  _ExerciseState createState() => _ExerciseState();
+  _DropVocabState createState() => _DropVocabState();
 }
 
-class _ExerciseState extends State<Exercise> {
+class _DropVocabState extends State<DropVocab> {
   int currentChoice = 1;
   bool isFinish = false;
   int answerPoint = 0;
@@ -63,7 +64,11 @@ class _ExerciseState extends State<Exercise> {
       leading: IconButton(
         padding: EdgeInsets.all(0.0),
         icon: Icon(Icons.close),
-        onPressed: () => Navigator.pop(context),
+        onPressed: () => Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => MyHomePage()),
+          (Route route) => false,
+        ),
       ),
       title: Container(
         child: LinearPercentIndicator(
@@ -88,7 +93,10 @@ class _ExerciseState extends State<Exercise> {
                       margin: EdgeInsets.only(bottom: 2.0),
                       color: mcl1.withOpacity(0.5),
                       width: double.infinity,
-                      child: Text('Drop the answer to correct Pictrue.' ,textAlign: TextAlign.center,),
+                      child: Text(
+                        'Drop the answer to correct Pictrue.',
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                     Expanded(
                       child: _buildTarget1(),
@@ -105,7 +113,10 @@ class _ExerciseState extends State<Exercise> {
                     ),
                   ],
                 )
-              : FinishPage(answerPoint: answerPoint , exerciseData: 'animal',),
+              : FinishPage(
+                  answerPoint: answerPoint,
+                  exerciseData: 'animal',
+                ),
         ),
       ),
     );
@@ -181,8 +192,6 @@ class _ExerciseState extends State<Exercise> {
         ],
       );
 }
-
-
 
 class DragObjectBox extends StatelessWidget {
   DragObjectBox(this.animal);

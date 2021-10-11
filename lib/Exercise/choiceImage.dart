@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:vocab_app/content/contentData.dart';
-import 'package:vocab_app/dialog_widget.dart';
+import 'package:vocab_app/widget/dialog_widget.dart';
 import 'package:vocab_app/finishPage.dart';
+import 'package:vocab_app/home.dart';
 import 'package:vocab_app/theme/color.dart';
 
-class DragSentence extends StatefulWidget {
-  const DragSentence({Key? key}) : super(key: key);
+class ChoiceImage extends StatefulWidget {
+  const ChoiceImage({Key? key}) : super(key: key);
 
   @override
-  _DragSentenceState createState() => _DragSentenceState();
+  _ChoiceImageState createState() => _ChoiceImageState();
 }
 
-class _DragSentenceState extends State<DragSentence> {
+class _ChoiceImageState extends State<ChoiceImage> {
   int currentChoice = 1;
   String showImage = "";
   int pointAnswer = 0;
@@ -62,7 +63,11 @@ class _DragSentenceState extends State<DragSentence> {
       leading: IconButton(
         padding: EdgeInsets.all(0.0),
         icon: Icon(Icons.close),
-        onPressed: () => Navigator.pop(context),
+        onPressed: () => Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => MyHomePage()),
+          (Route route) => false,
+        ),
       ),
       title: Container(
         child: LinearPercentIndicator(
@@ -112,7 +117,10 @@ class _DragSentenceState extends State<DragSentence> {
                     ),
                   ],
                 )
-              : FinishPage(answerPoint: pointAnswer , exerciseData: 'fruit',),
+              : FinishPage(
+                  answerPoint: pointAnswer,
+                  exerciseData: 'fruit',
+                ),
         ),
       ),
     );
